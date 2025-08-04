@@ -41,6 +41,36 @@ public class Candidate {
         this.skills=skills;
     }
 
+    
+    //setters
+    public void setId(Long id){
+        this.id=id;
+    }
+
+    public void setName(String name){
+        this.name=name;
+    }
+
+    public void setEmail(String email){
+     this.email=email;
+    }
+
+    public void setContactNumber(String contactNumber){
+        this.contactNumber=contactNumber;
+    }
+
+    public void setResume(String resume){
+        this.resume=resume;
+    }
+
+    public void setExpectedSalary(Double expectedSalary) {
+         this.expectedSalary = expectedSalary; 
+        }
+
+    public void setSkills(List<String> skills) {
+         this.skills = skills; 
+    }
+
     //Getters
     public Long getId(){
         return id;
@@ -70,33 +100,5 @@ public class Candidate {
          return skills; 
         }
 
-    //setters
-    public void setId(Long id){
-        this.id=id;
-    }
-
-    public void setName(String name){
-        this.name=name;
-    }
-
-    public void setEmail(String email){
-     this.email=email;
-    }
-
-    public void setContactNumber(String contactNumber){
-        this.contactNumber=contactNumber;
-    }
-
-    public void setResume(String resume){
-        this.resume=resume;
-    }
-
-    public void setExpectedSalary(Double expectedSalary) {
-         this.expectedSalary = expectedSalary; 
-        }
-
-    public void setSkills(List<String> skills) {
-         this.skills = skills; 
-    }
 
 }
