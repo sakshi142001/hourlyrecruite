@@ -1,0 +1,13 @@
+package com.hourlyrecruite.hourlyrecruite.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.hourlyrecruite.hourlyrecruite.model.Job;
+
+
+@Repository
+public interface OblicJob extends JpaRepository<Job, Long> {
+
+
+}
