@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hourlyrecruite.hourlyrecruite.model.Interview;
-import com.hourlyrecruite.hourlyrecruite.repository.CandidateRepository;
 import com.hourlyrecruite.hourlyrecruite.repository.InterviewRepository;
-import com.hourlyrecruite.hourlyrecruite.model.Candidate;
 
 @Service
 public class InterviewService {
@@ -19,9 +17,6 @@ private InterviewRepository interviewRepository;
 
 @Autowired
 private NotificationService notificationService;
-
-@Autowired
-private CandidateRepository candidateRepository;
 
 //Schedule Interview
 public Interview scheduleInterview(Interview interview){

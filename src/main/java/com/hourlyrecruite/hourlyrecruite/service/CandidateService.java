@@ -9,13 +9,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import com.hourlyrecruite.hourlyrecruite.repository.CandidateRepository;
-import com.hourlyrecruite.hourlyrecruite.repository.OblicJob;
+import com.hourlyrecruite.hourlyrecruite.repository.JobRepository;
 
 @Service
 public class CandidateService {
 
     @Autowired
-    private OblicJob jobRepository;
+    private JobRepository jobRepository;
     
     @Autowired
     private CandidateRepository candidateRepository;

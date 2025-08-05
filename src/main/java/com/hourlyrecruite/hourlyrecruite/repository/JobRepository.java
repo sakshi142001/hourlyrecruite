@@ -7,7 +7,7 @@ import com.hourlyrecruite.hourlyrecruite.model.Job;
 
 
 @Repository
-public interface OblicJob extends JpaRepository<Job, Long> {
+public interface JobRepository extends JpaRepository<Job, Long> {
 
 
 }

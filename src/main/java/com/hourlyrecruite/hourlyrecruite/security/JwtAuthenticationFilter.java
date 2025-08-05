@@ -13,7 +13,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.hourlyrecruite.hourlyrecruite.repository.UserRepository;
 import com.hourlyrecruite.hourlyrecruite.model.*;
-import java.util.List;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
