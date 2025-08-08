@@ -30,4 +30,3 @@ jobs:
     - name: Build Docker image
       run: |
        docker build -t sakshi052001/hr-backend .
-       working-directory: .
