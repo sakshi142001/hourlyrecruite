@@ -27,6 +27,8 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
     
-    - name: Build Docker image
+    - name: Build and Push Docker Image
       run: |
        docker build -t sakshi052001/hr-backend .
+       docker tag sakshi052001/hr-backend sakshi052001/hr-backend:latest
+       docker push sakshi052001/hr-backend:latest
