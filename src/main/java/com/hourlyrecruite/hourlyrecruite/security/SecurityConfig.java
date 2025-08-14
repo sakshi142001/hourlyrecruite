@@ -17,8 +17,11 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import com.hourlyrecruite.hourlyrecruite.service.CustomUserDetailsService;
 
+import jakarta.servlet.http.HttpServletRequest;
 
- @EnableWebSecurity //for @preAuthorize to work
+
+ 
+@EnableWebSecurity //for @preAuthorize to work
 @Configuration
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
@@ -63,31 +66,31 @@ public class SecurityConfig {
 
         http
             .authorizeHttpRequests(auth -> {
-                try {
                     // Public APIs (no token needed)
                     auth.requestMatchers("/api/auth/**").permitAll()
-                    //auth.requestMatchers("/api/auth/register", "/api/auth/login").permitAll()
-                    // Job-related APIs (only for ADMIN and RECRUITER)
                     .requestMatchers("/admin/**").hasRole("ADMIN")
                     .requestMatchers("/api/jobs/**").hasAnyRole("ADMIN", "RECRUITER")
                     .requestMatchers("/candidate/**").hasRole("CANDIDATE")
                     .requestMatchers("/recruiter/**").hasRole("RECRUITER")
 
-
-                    // All other APIs need token
                     .anyRequest().authenticated();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             });
 
-            // Don’t store session (we use token-based login)
-        http.sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+            http.sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        // Set the authentication filter before Spring's built-in filter
-        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        // Custom filter chain to skip JWT for public endpoints
+http.addFilterBefore((servletRequest, servletResponse, filterChain) -> {
+    HttpServletRequest request = (HttpServletRequest) servletRequest;
+    String path = request.getRequestURI();
 
-        return http.build();
+    // Allow public APIs without JWT check
+    if (path.startsWith("/api/auth/")) {
+        filterChain.doFilter(servletRequest, servletResponse);
+    } else {
+        jwtAuthenticationFilter.doFilter(servletRequest, servletResponse, filterChain);
     }
+}, UsernamePasswordAuthenticationFilter.class);
+   
+ }
     
 }
