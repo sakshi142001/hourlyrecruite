@@ -65,7 +65,8 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> {
                 try {
                     // Public APIs (no token needed)
-                    auth.requestMatchers("/api/auth/register", "/api/auth/login").permitAll()
+                    auth.requestMatchers("/api/auth/**").permitAll()
+                    //auth.requestMatchers("/api/auth/register", "/api/auth/login").permitAll()
                     // Job-related APIs (only for ADMIN and RECRUITER)
                     .requestMatchers("/admin/**").hasRole("ADMIN")
                     .requestMatchers("/api/jobs/**").hasAnyRole("ADMIN", "RECRUITER")
