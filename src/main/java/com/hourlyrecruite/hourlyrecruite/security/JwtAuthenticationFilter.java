@@ -38,7 +38,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 
     // ✅ Step 1: Skip JWT check for login/register endpoints
         String path = request.getServletPath();
-        if (path.equals("/api/auth/login") || path.equals("/api/auth/register")) {
+        if (path.startsWith("/api/auth/login") || path.startsWith("/api/auth/register")) {
             filterChain.doFilter(request, response);
             return;
         }
