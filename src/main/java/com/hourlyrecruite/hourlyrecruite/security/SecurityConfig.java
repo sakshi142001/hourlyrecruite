@@ -60,7 +60,7 @@ public class SecurityConfig {
 
 // 4. Security Filter Chain: set rules for which APIs are public or secured
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http)throws Exception  {
 
         http.csrf(csrf -> csrf.disable()); // Disable CSRF for testing API with Postman
 
@@ -90,7 +90,7 @@ http.addFilterBefore((servletRequest, servletResponse, filterChain) -> {
         jwtAuthenticationFilter.doFilter(servletRequest, servletResponse, filterChain);
     }
 }, UsernamePasswordAuthenticationFilter.class);
-   
+   return http.build();
  }
     
 }
