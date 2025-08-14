@@ -1,5 +1,6 @@
 package com.hourlyrecruite.hourlyrecruite.security;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.hourlyrecruite.hourlyrecruite.model.User;
@@ -15,8 +16,9 @@ import java.util.Map;
 @Component
 public class JwtUtil {
 
-    // Secret key for signing the token
-    private String SECRET_KEY = "secret123"; // You can change it
+    @Value("${JWT_SECRET}")
+   private String SECRET_KEY;
+
     // 10 hours expiration in milliseconds
     private long EXPIRATION_TIME = 10 * 60 * 60 * 1000;
 
