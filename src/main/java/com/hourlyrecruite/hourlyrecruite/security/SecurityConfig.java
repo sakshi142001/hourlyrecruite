@@ -67,10 +67,10 @@ public class SecurityConfig {
                     // Public APIs (no token needed)
                     auth.requestMatchers("/api/auth/register", "/api/auth/login").permitAll()
                     // Job-related APIs (only for ADMIN and RECRUITER)
-                    .requestMatchers("/admin/").hasRole("ADMIN")
-                    .requestMatchers("/api/jobs/").hasAnyRole("ADMIN", "RECRUITER")
-                    .requestMatchers("/candidate/").hasRole("CANDIDATE")
-                    .requestMatchers("/recruiter/").hasRole("RECRUITER")
+                    .requestMatchers("/admin/**").hasRole("ADMIN")
+                    .requestMatchers("/api/jobs/**").hasAnyRole("ADMIN", "RECRUITER")
+                    .requestMatchers("/candidate/**").hasRole("CANDIDATE")
+                    .requestMatchers("/recruiter/**").hasRole("RECRUITER")
 
 
                     // All other APIs need token
