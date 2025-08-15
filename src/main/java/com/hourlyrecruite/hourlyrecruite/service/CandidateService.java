@@ -16,12 +16,11 @@ public class CandidateService {
 
     @Autowired
     private JobRepository jobRepository;
-    
+
     @Autowired
     private CandidateRepository candidateRepository;
 
-    
-    public Candidate applyForJob(Candidate candidate){
+    public Candidate applyForJob(Candidate candidate) {
         return candidateRepository.save(candidate);
     }
 
@@ -30,7 +29,7 @@ public class CandidateService {
     }
 
     public Candidate updateProfile(String email, Candidate updatedCandidate) {
-    Candidate existing = candidateRepository.findByEmail(email).orElse(null);
+        Candidate existing = candidateRepository.findByEmail(email).orElse(null);
         if (existing != null) {
             existing.setContactNumber(updatedCandidate.getContactNumber());
             existing.setResume(updatedCandidate.getResume());
@@ -38,22 +37,21 @@ public class CandidateService {
         return null;
     }
 
-    // Get all candidates (for admin)
     public List<Candidate> getAllCandidates() {
         return candidateRepository.findAll();
     }
 
     public List<Job> matchJobsForCandidate(Candidate candidate) {
-    List<Job> allJobs = jobRepository.findAll();
-    return allJobs.stream()
-            .filter(job -> job.getSkillsRequired() != null &&
-                    !Collections.disjoint(candidate.getSkills(), job.getSkillsRequired()))
-            .collect(Collectors.toList());
-}
+        List<Job> allJobs = jobRepository.findAll();
+        return allJobs.stream()
+                .filter(job -> job.getSkillsRequired() != null &&
+                        !Collections.disjoint(candidate.getSkills(), job.getSkillsRequired()))
+                .collect(Collectors.toList());
+    }
 
-public Candidate getById(Long id) {
-    return candidateRepository.findById(id)
-        .orElseThrow(() -> new RuntimeException("Candidate not found with ID: " + id));
-}
+    public Candidate getById(Long id) {
+        return candidateRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Candidate not found with ID: " + id));
+    }
 
 }

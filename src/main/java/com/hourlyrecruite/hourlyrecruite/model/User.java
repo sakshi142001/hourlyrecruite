@@ -11,9 +11,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-   private String username;
-   
-     @Column(unique = true)
+    private String username;
+
+    @Column(unique = true)
     private String email;
 
     private String password;
@@ -21,19 +21,17 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    // --- Constructors ---
     public User() {
     }
 
     public User(Long id, String username, String email, String password, Role role) {
         this.id = id;
         this.username = username;
-        this.email=email;
+        this.email = email;
         this.password = password;
         this.role = role;
     }
 
-    // --- Getters ---
     public Long getId() {
         return id;
     }
@@ -42,7 +40,7 @@ public class User {
         return username;
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return email;
     }
 
@@ -54,7 +52,6 @@ public class User {
         return role;
     }
 
-    // --- Setters ---
     public void setId(Long id) {
         this.id = id;
     }
@@ -63,9 +60,10 @@ public class User {
         this.username = username;
     }
 
-    public void setEmail(String email){
-        this.email=email;
+    public void setEmail(String email) {
+        this.email = email;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -74,17 +72,14 @@ public class User {
         this.role = role;
     }
 
-    // --- toString (optional) ---
     @Override
     public String toString() {
         return "User{" +
-               "id=" + id +
-               ", username='" + username + '\'' +
-               ", email='" + email + '\'' +
-               ", role=" + role +
-               '}';
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", role=" + role +
+                '}';
     }
 
-
-    
 }

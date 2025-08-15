@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-
 @Service
 public class JobService {
 
@@ -31,15 +30,15 @@ public class JobService {
 
     public Job updateJob(Long id, Job updatedJob) {
         return jobRepository.findById(id)
-            .map(existingJob -> {
-                existingJob.setTitle(updatedJob.getTitle());
-                existingJob.setDescription(updatedJob.getDescription());
-                existingJob.setLocation(updatedJob.getLocation());
-                existingJob.setType(updatedJob.getType());
-                existingJob.setSkillsRequired(updatedJob.getSkillsRequired());
-                return jobRepository.save(existingJob);
-            })
-            .orElse(null);
+                .map(existingJob -> {
+                    existingJob.setTitle(updatedJob.getTitle());
+                    existingJob.setDescription(updatedJob.getDescription());
+                    existingJob.setLocation(updatedJob.getLocation());
+                    existingJob.setType(updatedJob.getType());
+                    existingJob.setSkillsRequired(updatedJob.getSkillsRequired());
+                    return jobRepository.save(existingJob);
+                })
+                .orElse(null);
     }
 
     public void deleteJob(Long id) {
@@ -47,10 +46,9 @@ public class JobService {
     }
 
     public List<Job> filterJobsBySkill(String skill) {
-    return jobRepository.findAll().stream()
-            .filter(job -> job.getSkillsRequired() != null && job.getSkillsRequired().contains(skill))
-            .collect(Collectors.toList());
-}
+        return jobRepository.findAll().stream()
+                .filter(job -> job.getSkillsRequired() != null && job.getSkillsRequired().contains(skill))
+                .collect(Collectors.toList());
+    }
 
- 
 }

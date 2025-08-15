@@ -11,7 +11,7 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Candidate {
-   
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,82 +23,79 @@ public class Candidate {
     private String contactNumber;
     private String resume;
     private Double expectedSalary;
+
     @ElementCollection
     private List<String> skills;
-    
-    public Candidate(){
+
+    public Candidate() {
 
     }
 
-    //all args constructor
-    public Candidate(Long id,String name, String email, String contactNumber, String resume, Double expectedSalary, List<String> skills){
-        this.id=id;
-        this.name=name;
-        this.email=email;
-        this.contactNumber=contactNumber;
-        this.resume=resume;
-        this.expectedSalary=expectedSalary;
-        this.skills=skills;
+    public Candidate(Long id, String name, String email, String contactNumber, String resume, Double expectedSalary,
+            List<String> skills) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.contactNumber = contactNumber;
+        this.resume = resume;
+        this.expectedSalary = expectedSalary;
+        this.skills = skills;
     }
 
-    
-    //setters
-    public void setId(Long id){
-        this.id=id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setName(String name){
-        this.name=name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setEmail(String email){
-     this.email=email;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void setContactNumber(String contactNumber){
-        this.contactNumber=contactNumber;
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
     }
 
-    public void setResume(String resume){
-        this.resume=resume;
+    public void setResume(String resume) {
+        this.resume = resume;
     }
 
     public void setExpectedSalary(Double expectedSalary) {
-         this.expectedSalary = expectedSalary; 
-        }
-
-    public void setSkills(List<String> skills) {
-         this.skills = skills; 
+        this.expectedSalary = expectedSalary;
     }
 
-    //Getters
-    public Long getId(){
+    public void setSkills(List<String> skills) {
+        this.skills = skills;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return email;
     }
 
-    public String getContactNumber(){
+    public String getContactNumber() {
         return contactNumber;
     }
 
-    public String getResume(){
+    public String getResume() {
         return resume;
     }
 
-    public Double getExpectedSalary() { 
-        return expectedSalary; 
+    public Double getExpectedSalary() {
+        return expectedSalary;
     }
 
     public List<String> getSkills() {
-         return skills; 
-        }
-
+        return skills;
+    }
 
 }

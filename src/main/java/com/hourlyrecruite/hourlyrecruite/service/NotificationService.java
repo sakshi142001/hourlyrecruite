@@ -2,22 +2,18 @@ package com.hourlyrecruite.hourlyrecruite.service;
 
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class NotificationService {
-    
-public void sendEmail(String to, String subject, String message) {
-        // Stub for email notification
+
+    public void sendEmail(String to, String subject, String message) {
         System.out.println("Email sent to " + to + ": " + subject + " - " + message);
     }
 
     public void sendSMS(String to, String message) {
-        // Stub for SMS notification
         System.out.println("SMS sent to " + to + ": " + message);
     }
 
     public void sendWhatsApp(String to, String message) {
-        // Stub for WhatsApp notification
         System.out.println("WhatsApp message sent to " + to + ": " + message);
     }
 

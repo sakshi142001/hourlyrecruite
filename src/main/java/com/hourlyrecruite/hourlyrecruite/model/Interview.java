@@ -9,69 +9,67 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Interview {
- 
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)    
-private Long id;
 
-private Long candidateId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-private Long jobId;
+    private Long candidateId;
 
-private String mode; // online, offline
+    private Long jobId;
 
-private String status; // scheduled, completed, cancelled
+    private String mode;
 
-private LocalDateTime interviewTime;
+    private String status;
 
-//setters
-public void setId(Long id){
-    this.id=id;
-}
+    private LocalDateTime interviewTime;
 
-public void setCnadidateId(Long candidateId){
-    this.candidateId=candidateId;
-}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-public void setJobId(Long jobId){
-    this.jobId=jobId;
-}
+    public void setCnadidateId(Long candidateId) {
+        this.candidateId = candidateId;
+    }
 
-public void setMode(String mode){
-    this.mode=mode;
-}
+    public void setJobId(Long jobId) {
+        this.jobId = jobId;
+    }
 
-public void setStatus(String status){
-    this.status=status;
-}
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
 
-public void setInterviewTime(LocalDateTime interviewTime){
-    this.interviewTime=interviewTime;
-}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-//getters
-public Long getId(){
-    return id;
-}
+    public void setInterviewTime(LocalDateTime interviewTime) {
+        this.interviewTime = interviewTime;
+    }
 
-public Long getCandidateId(){
-    return candidateId;
-}
+    public Long getId() {
+        return id;
+    }
 
-public Long getJobId() { 
-    return jobId;
- }
+    public Long getCandidateId() {
+        return candidateId;
+    }
 
-public String getMode() { 
-    return mode; 
-}
+    public Long getJobId() {
+        return jobId;
+    }
 
-public String getStatus() {
-     return status;
-}
+    public String getMode() {
+        return mode;
+    }
 
-public LocalDateTime getInterviewTime() {
-     return interviewTime;
-}
+    public String getStatus() {
+        return status;
+    }
+
+    public LocalDateTime getInterviewTime() {
+        return interviewTime;
+    }
 
 }

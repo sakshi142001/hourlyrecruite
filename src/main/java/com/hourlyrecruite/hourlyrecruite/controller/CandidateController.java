@@ -1,4 +1,5 @@
 package com.hourlyrecruite.hourlyrecruite.controller;
+
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +23,13 @@ public class CandidateController {
 
     @Autowired
     private CandidateService candidateService;
-    
-    // Only users with ROLE_CANDIDATE can apply for a job
+
     @PostMapping("/apply")
     @PreAuthorize("hasRole('CANDIDATE')")
     public Candidate applyForJob(@RequestBody Candidate candidate) {
         return candidateService.applyForJob(candidate);
     }
 
-   // Only users with ROLE_CANDIDATE can view their own profile
     @GetMapping("/profile")
     @PreAuthorize("hasRole('CANDIDATE')")
     public Candidate viewProfile(@RequestParam String email) {
@@ -39,11 +38,10 @@ public class CandidateController {
 
     @PutMapping("/profile")
     @PreAuthorize("hasRole('CANDIDATE')")
-    public Candidate updateProfile(@RequestParam
-    String email, @RequestBody Candidate candidate) {
+    public Candidate updateProfile(@RequestParam String email, @RequestBody Candidate candidate) {
         return candidateService.updateProfile(email, candidate);
     }
-    
+
     @GetMapping("/all")
     @PreAuthorize("hasRole('ADMIN')")
     public List<Candidate> getAllCandidates() {
@@ -51,9 +49,9 @@ public class CandidateController {
     }
 
     @GetMapping("/match/{id}")
-@PreAuthorize("hasRole('CANDIDATE')")
-public List<Job> getMatchingJobs(@PathVariable Long id) {
-    Candidate candidate = candidateService.getById(id);
-    return candidateService.matchJobsForCandidate(candidate);
-}
+    @PreAuthorize("hasRole('CANDIDATE')")
+    public List<Job> getMatchingJobs(@PathVariable Long id) {
+        Candidate candidate = candidateService.getById(id);
+        return candidateService.matchJobsForCandidate(candidate);
+    }
 }

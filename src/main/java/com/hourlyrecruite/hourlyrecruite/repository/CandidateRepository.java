@@ -10,5 +10,5 @@ import com.hourlyrecruite.hourlyrecruite.model.Candidate;
 public interface CandidateRepository extends JpaRepository<Candidate, Long> {
 
     Optional<Candidate> findByEmail(String email);
-    
+
 }

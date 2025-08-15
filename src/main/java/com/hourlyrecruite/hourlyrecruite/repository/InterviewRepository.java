@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.hourlyrecruite.hourlyrecruite.model.Interview;
 
-public interface InterviewRepository  extends JpaRepository<Interview, Long>{
+public interface InterviewRepository extends JpaRepository<Interview, Long> {
 
 }

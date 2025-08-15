@@ -20,31 +20,27 @@ import com.hourlyrecruite.hourlyrecruite.service.InterviewService;
 @RequestMapping("/api/interviews")
 public class InterviewController {
 
-@Autowired
-private InterviewService interviewService;
-    
-// Schedule Interview
+    @Autowired
+    private InterviewService interviewService;
+
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'RECRUITER')")
     public Interview scheduleInterview(@RequestBody Interview interview) {
         return interviewService.scheduleInterview(interview);
     }
 
-    // Get All Interviews
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public List<Interview> getAllInterviews() {
         return interviewService.getAllInterviews();
     }
 
-    // Get Interviews by Candidate ID
     @GetMapping("/candidate/{candidateId}")
     @PreAuthorize("hasAnyRole('ADMIN', 'CANDIDATE')")
     public List<Interview> getByCandidateId(@PathVariable Long candidateId) {
         return interviewService.getByCandidateId(candidateId);
     }
 
-    // Update Interview Status
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'RECRUITER')")
     public Interview updateInterviewStatus(@PathVariable Long id, @RequestParam String status) {

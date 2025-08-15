@@ -22,31 +22,27 @@ import java.util.*;
 @RequestMapping("/api/jobs")
 public class JobController {
 
-        @Autowired
+    @Autowired
     private JobService jobService;
 
-    // Get all jobs
     @GetMapping
     public List<Job> getAllJobs() {
         return jobService.getAllJobs();
     }
 
-    // Get a job by ID
     @GetMapping("/{id}")
     public ResponseEntity<Job> getJobById(@PathVariable Long id) {
         return jobService.getJobById(id)
-            .map(ResponseEntity::ok)
-            .orElse(ResponseEntity.notFound().build());
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    // Create a new job
     @PostMapping
     @PreAuthorize("hasRole('RECRUITER') or hasRole('ADMIN')")
     public Job createJob(@RequestBody Job job) {
         return jobService.createJob(job);
     }
 
-    // Update an existing job
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('RECRUITER') or hasRole('ADMIN')")
     public ResponseEntity<Job> updateJob(@PathVariable Long id, @RequestBody Job job) {
@@ -54,7 +50,6 @@ public class JobController {
         return updated != null ? ResponseEntity.ok(updated) : ResponseEntity.notFound().build();
     }
 
-    // Delete a job
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('RECRUITER') or hasRole('ADMIN')")
     public ResponseEntity<String> deleteJob(@PathVariable Long id) {
@@ -63,8 +58,8 @@ public class JobController {
     }
 
     @GetMapping("/filter")
-public List<Job> filterBySkill(@RequestParam String skill) {
-    return jobService.filterJobsBySkill(skill);
-}
+    public List<Job> filterBySkill(@RequestParam String skill) {
+        return jobService.filterJobsBySkill(skill);
+    }
 
 }

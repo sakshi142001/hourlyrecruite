@@ -19,9 +19,7 @@ import com.hourlyrecruite.hourlyrecruite.service.CustomUserDetailsService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-
- 
-@EnableWebSecurity //for @preAuthorize to work
+@EnableWebSecurity
 @Configuration
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
@@ -32,65 +30,54 @@ public class SecurityConfig {
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
-    // 1. Password encoder (used to encrypt/decrypt passwords)
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // Using BCrypt encryption
+        return new BCryptPasswordEncoder();
     }
 
-    // 2. Authentication Provider: connects the user service and password encoder
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
 
-        // Set how to load user data
         provider.setUserDetailsService(customUserDetailsService);
-
-        // Set how to compare passwords
         provider.setPasswordEncoder(passwordEncoder());
-
         return provider;
     }
 
-    // 3. AuthenticationManager: manually create authentication manager from config
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 
-// 4. Security Filter Chain: set rules for which APIs are public or secured
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http)throws Exception  {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.csrf(csrf -> csrf.disable()); // Disable CSRF for testing API with Postman
+        http.csrf(csrf -> csrf.disable());
 
         http
-            .authorizeHttpRequests(auth -> {
-                    // Public APIs (no token needed)
+                .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/api/auth/**").permitAll()
-                    .requestMatchers("/admin/**").hasRole("ADMIN")
-                    .requestMatchers("/api/jobs/**").hasAnyRole("ADMIN", "RECRUITER")
-                    .requestMatchers("/candidate/**").hasRole("CANDIDATE")
-                    .requestMatchers("/recruiter/**").hasRole("RECRUITER")
+                            .requestMatchers("/admin/**").hasRole("ADMIN")
+                            .requestMatchers("/api/jobs/**").hasAnyRole("ADMIN", "RECRUITER")
+                            .requestMatchers("/candidate/**").hasRole("CANDIDATE")
+                            .requestMatchers("/recruiter/**").hasRole("RECRUITER")
 
-                    .anyRequest().authenticated();
-            });
+                            .anyRequest().authenticated();
+                });
 
-            http.sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        http.sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        // Custom filter chain to skip JWT for public endpoints
-http.addFilterBefore((servletRequest, servletResponse, filterChain) -> {
-    HttpServletRequest request = (HttpServletRequest) servletRequest;
-    String path = request.getRequestURI();
+        http.addFilterBefore((servletRequest, servletResponse, filterChain) -> {
+            HttpServletRequest request = (HttpServletRequest) servletRequest;
+            String path = request.getRequestURI();
 
-    // Allow public APIs without JWT check
-    if (path.startsWith("/api/auth/")) {
-        filterChain.doFilter(servletRequest, servletResponse);
-    } else {
-        jwtAuthenticationFilter.doFilter(servletRequest, servletResponse, filterChain);
+            if (path.startsWith("/api/auth/")) {
+                filterChain.doFilter(servletRequest, servletResponse);
+            } else {
+                jwtAuthenticationFilter.doFilter(servletRequest, servletResponse, filterChain);
+            }
+        }, UsernamePasswordAuthenticationFilter.class);
+        return http.build();
     }
-}, UsernamePasswordAuthenticationFilter.class);
-   return http.build();
- }
-    
+
 }
